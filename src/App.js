@@ -18,6 +18,18 @@ class App extends Component {
         // removeName method is calling this.setState with an updated data model
         this.setState({ names: newNames });
     };
+    componentDidMount () {
+        const savedNamesString = localStorage.getItem("savedNames");
+        if (savedNamesString) {
+            const savedNames = JSON.parse(savedNamesString);
+            this.setState({ names: savedNames });
+            console.log(savedNamesString);
+        }
+    }   
+    componentDidUpdate () {
+        const savedNamesString = JSON.stringify(this.state.names);
+        localStorage.setItem("savedNames", savedNamesString);
+    }
     render() {
         return (
             <div className="App">
